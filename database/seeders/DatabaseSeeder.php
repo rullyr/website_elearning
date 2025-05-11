@@ -11,13 +11,21 @@ class DatabaseSeeder extends Seeder
     /**
      * Seed the application's database.
      */
-    public function run(): void
+    public function run()
     {
-        // User::factory(10)->create();
+        \App\Models\User::factory(10)->create();
+        \App\Models\Kelas::factory(5)->create()->each(function ($class) {
+            if (!$class->is_tryout) {
+                \App\Models\Material::factory(3)->create(['class_id' => $class->id]);
+            }
+            \App\Models\Quiz::factory(5)->create(['class_id' => $class->id]);
+        });
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Assign all users to all classes
+        $users = \App\Models\User::all();
+        $classes = \App\Models\Kelas::all();
+        foreach ($users as $user) {
+            $user->classes()->attach($classes->pluck('id'));
+        }
     }
 }

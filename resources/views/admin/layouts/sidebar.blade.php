@@ -28,7 +28,7 @@
                   data-accordion="false">
                   <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
-                  <li class="nav-item">
+                  {{-- <li class="nav-item">
                       <a href="{{ route('admin.dashboard') }}"
                           class="nav-link {{ Request::routeIs('admin.dashboard') ? 'active' : '' }} ">
                           <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -38,8 +38,8 @@
                       </a>
                   </li>
 
-                  <li class="nav-item">
-                      <a href="#" class="nav-link">
+                  <li class="nav-item {{ in_array($type_menu, ['class-create']) ? 'menu-open' : '' }}">
+                      <a href="#" class="nav-link {{ in_array($type_menu, ['class-create']) ? 'active' : '' }}">
                           <i class="nav-icon fas fa-edit"></i>
                           <p>
                               Forms
@@ -48,7 +48,8 @@
                       </a>
                       <ul class="nav nav-treeview">
                           <li class="nav-item">
-                              <a href="../forms/buat_kelas.html" class="nav-link">
+                              <a href="{{ route('admin.kelas.create') }}"
+                                  class="nav-link {{ $type_menu === 'class-create' ? 'active' : '' }}">
                                   <i class="far fa-circle nav-icon"></i>
                                   <p>Buat Kelas</p>
                               </a>
@@ -101,7 +102,31 @@
                               <span class="badge badge-info right">2</span>
                           </p>
                       </a>
-                  </li>
+                  </li> --}}
+                  {{-- MENU DASHBOARD --}}
+                  <x-sidebar.menu-item href="{{ route('admin.dashboard') }}" title="Dashboard"
+                      icon="fas fa-tachometer-alt" :active="$type_menu === 'dashboard'" />
+
+
+                  {{-- MENU FORM --}}
+                  <x-sidebar.tree-menu title="Forms" icon="fas fa-edit" :menuKeys="['class-create']" :activeMenu="$type_menu">
+                      <x-sidebar.menu-item href="{{ route('admin.kelas.create') }}" title="Buat Kelas"
+                          icon="far fa-circle nav-icon" :active="$type_menu === 'class-create'" />
+                      <x-sidebar.menu-item href="#" title="Buat Materi" icon="far fa-circle nav-icon"
+                          :active="$type_menu === 'material-create'" />
+                      <x-sidebar.menu-item href="#" title="Buat Quiz" icon="far fa-circle nav-icon"
+                          :active="$type_menu === 'quiz-create'" />
+                  </x-sidebar.tree-menu>
+
+                  {{-- MENU DATA --}}
+                  <x-sidebar.tree-menu title="Data" icon="fas fa-table" :menuKeys="['class-list']" :activeMenu="$type_menu">
+                      <x-sidebar.menu-item href="#" title="Data User" icon="far fa-circle nav-icon"
+                          :active="$type_menu === 'material-create'" />
+                      <x-sidebar.menu-item href="{{ route('admin.kelas.index') }}" title="Data Kelas"
+                          icon="far fa-circle nav-icon" :active="$type_menu === 'class-list'" />
+                  </x-sidebar.tree-menu>
+
+
 
           </nav>
           <!-- /.sidebar-menu -->

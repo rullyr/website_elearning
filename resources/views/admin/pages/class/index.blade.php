@@ -27,6 +27,14 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                @if (session()->has('success'))
+                    <x-alert type="success" :message="session('success')" />
+                @endif
+
+                @error('error')
+                    <x-alert type="danger" :message="$message" />
+                @enderror
+
 
                 <div class="row">
                     <div class="col-12">
@@ -41,83 +49,31 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-
-                                        <tr>
-                                            <td>Test Intelegensi Umum (TIU) </td>
-                                            <td>Active</td>
-                                            <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="../examples/kelas_detail.html">
-                                                    <i class="fa fa-info-circle"></i>
-                                                    Info
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="../examples/kelas_edit.html">
-                                                    <i class="fas fa-pencil-alt"> </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-trash"></i>
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Test Wawasan Kebangsaan (TWK) </td>
-                                            <td>Active</td>
-                                            <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="../examples/kelas_detail.html">
-                                                    <i class="fa fa-info-circle"></i>
-                                                    Info
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="../examples/kelas_edit.html">
-                                                    <i class="fas fa-pencil-alt"> </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-trash"></i>
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Test Karakteristik Pribadi (TKP) </td>
-                                            <td>Active</td>
-                                            <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="../examples/kelas_detail.html">
-                                                    <i class="fa fa-info-circle"></i>
-                                                    Info
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="../examples/kelas_edit.html">
-                                                    <i class="fas fa-pencil-alt"> </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-trash"></i>
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td>Tryout </td>
-                                            <td>Active</td>
-                                            <td class="project-actions text-right">
-                                                <a class="btn btn-primary btn-sm" href="../examples/to_detail.html">
-                                                    <i class="fa fa-info-circle"></i>
-                                                    Info
-                                                </a>
-                                                <a class="btn btn-info btn-sm" href="../examples/to_edit.html">
-                                                    <i class="fas fa-pencil-alt"> </i>
-                                                    Edit
-                                                </a>
-                                                <a class="btn btn-danger btn-sm" href="#">
-                                                    <i class="fas fa-trash"></i>
-                                                    Delete
-                                                </a>
-                                            </td>
-                                        </tr>
-
+                                        @forelse ($classes as $class)
+                                            <tr>
+                                                <td>{{ $class->name }}</td>
+                                                <td>{{ $class->status_label }}</td>
+                                                <td class="project-actions text-right">
+                                                    <a class="btn btn-primary btn-sm" href="../examples/kelas_detail.html">
+                                                        <i class="fa fa-info-circle"></i>
+                                                        Info
+                                                    </a>
+                                                    <a class="btn btn-info btn-sm"
+                                                        href="{{ route('admin.kelas.edit', $class->id) }}">
+                                                        <i class="fas fa-pencil-alt"> </i>
+                                                        Edit
+                                                    </a>
+                                                    {{-- <a class="btn btn-danger btn-sm" href="#">
+                                                        <i class="fas fa-trash"></i>
+                                                        Delete
+                                                    </a> --}}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="3">Data tidak ditemukan</td>
+                                            </tr>
+                                        @endforelse
                                     </tbody>
                                 </table>
                             </div>

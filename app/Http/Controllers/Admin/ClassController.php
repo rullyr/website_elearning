@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\Kelas;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ClassController extends Controller
 {
@@ -12,7 +13,8 @@ class ClassController extends Controller
      */
     public function index()
     {
-        return view('admin.pages.class.index', ['type_menu' => 'class-list']);
+        $classes = Kelas::with(['users', 'materials', 'quizzes'])->get();
+        return view('admin.pages.class.index', ['type_menu' => 'class-list', 'classes' => $classes]);
     }
 
     /**
@@ -20,7 +22,7 @@ class ClassController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.pages.class.create', ['type_menu' => 'class-create']);
     }
 
     /**
@@ -28,7 +30,21 @@ class ClassController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'class_name' => 'required|string',
+            'is_tryout' => 'sometimes|nullable|in:true',
+        ]);
+
+        $kelas = Kelas::create(
+            [
+                'name' => $request->input('class_name'),
+                'status' => 'aktif',
+                'is_tryout' => $request->input('is_tryout') == true ? true : false
+            ]
+        );
+
+        return redirect()->route('admin.kelas.index')
+            ->with('success', "Data kelas {$kelas->name} berhasil disimpan");
     }
 
     /**
@@ -44,7 +60,12 @@ class ClassController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $kelas = Kelas::findOrFail($id);
+
+        return view('admin.pages.class.edit', [
+            'type_menu' => 'class-edit',
+            'kelas' => $kelas
+        ]);
     }
 
     /**
@@ -52,7 +73,20 @@ class ClassController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'class_name' => 'sometimes|required|string',
+            'status' => 'sometimes|required|in:aktif,non-aktif',
+        ]);
+
+        $kelas = Kelas::findOrFail($id);
+        $kelas->update([
+            'name' => $request->input('class_name'),
+            'status' =>  $request->input('status'),
+            'is_tryout' => $request->input('is_tryout') == true ? true : false
+        ]);
+
+        return redirect()->route('admin.kelas.index')
+            ->with('success', "Data kelas {$kelas->name} berhasil diubah");
     }
 
     /**

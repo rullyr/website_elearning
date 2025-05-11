@@ -13,6 +13,8 @@ Route::get('reset', function () {
     Artisan::call('cache:clear');
     Artisan::call('config:clear');
     Artisan::call('config:cache');
+
+    return 'done';
 });
 
 Route::prefix('admin')->name('admin.')->group(function () {
