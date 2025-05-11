@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
@@ -20,4 +21,8 @@ Route::get('reset', function () {
 Route::prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', \App\Http\Controllers\Admin\DashboardController::class)->name('dashboard');
     Route::resource('kelas', \App\Http\Controllers\Admin\ClassController::class);
+
+    Route::get('user', [\App\Http\Controllers\Admin\UserController::class, 'index'])->name('user.index');
+    Route::get('user/{id}', [\App\Http\Controllers\Admin\UserController::class, 'show'])->name('user.show');
+    Route::delete('user/{id}', [\App\Http\Controllers\Admin\UserController::class, 'delete'])->name('user.delete');
 });

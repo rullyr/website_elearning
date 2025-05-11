@@ -119,9 +119,9 @@
                   </x-sidebar.tree-menu>
 
                   {{-- MENU DATA --}}
-                  <x-sidebar.tree-menu title="Data" icon="fas fa-table" :menuKeys="['class-list']" :activeMenu="$type_menu">
-                      <x-sidebar.menu-item href="#" title="Data User" icon="far fa-circle nav-icon"
-                          :active="$type_menu === 'material-create'" />
+                  <x-sidebar.tree-menu title="Data" icon="fas fa-table" :menuKeys="['class-list', 'user-list']" :activeMenu="$type_menu">
+                      <x-sidebar.menu-item href="{{ route('admin.user.index') }}" title="Data User"
+                          icon="far fa-circle nav-icon" :active="$type_menu === 'user-list'" />
                       <x-sidebar.menu-item href="{{ route('admin.kelas.index') }}" title="Data Kelas"
                           icon="far fa-circle nav-icon" :active="$type_menu === 'class-list'" />
                   </x-sidebar.tree-menu>
