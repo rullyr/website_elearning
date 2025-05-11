@@ -45,15 +45,27 @@
                                     <thead>
                                         <tr>
                                             <th>Nama Kursus</th>
+                                            <th>Tipe Kursus</th>
                                             <th>Status</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @forelse ($classes as $class)
                                             <tr>
                                                 <td>{{ $class->name }}</td>
+
+                                                <td>
+                                                    @if ($class->is_tryout == true)
+                                                        <span class="badge ba badge-warning">
+                                                            Try Out</span>
+                                                    @else
+                                                        <span class="badge badge-success">
+                                                            Kelas</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $class->status_label }}</td>
-                                                <td class="project-actions text-right">
+                                                <td class="project-actions text-left">
                                                     <a class="btn btn-primary btn-sm"
                                                         href="{{ route('admin.kelas.show', $class->id) }}">
                                                         <i class="fa fa-info-circle"></i>
@@ -76,6 +88,14 @@
                                             </tr>
                                         @endforelse
                                     </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th>Nama Kursus</th>
+                                            <th>Tipe Kursus</th>
+                                            <th>Status</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </tfoot>
                                 </table>
                             </div>
                             <!-- /.card-body -->

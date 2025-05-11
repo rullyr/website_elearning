@@ -13,7 +13,15 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Detail Kursus <b>{{ $class->name }}</b></h1>
+                        <h1>Detail Kursus <b>{{ $class->name }}</b>
+                            @if ($class->is_tryout == true)
+                                <span class="badge ba badge-warning">
+                                    Try Out</span>
+                            @else
+                                <span class="badge badge-success">
+                                    Kelas</span>
+                            @endif
+                        </h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
@@ -67,13 +75,17 @@
                                     <div class="info-box bg-light">
                                         <div class="info-box-content">
                                             <span class="info-box-text text-center text-muted">Jumlah Skor</span>
-                                            <span class="info-box-number text-center text-muted mb-0">10</span>
+                                            <span class="info-box-number text-center text-muted mb-0">
+                                                @if ($class->is_tryout == true)
+                                                    5
+                                                @else
+                                                    1
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
-
                         </div>
                     </div>
                     <!-- /.card-body -->
