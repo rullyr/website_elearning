@@ -52,7 +52,10 @@ class ClassController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $kelas = Kelas::with(['users', 'materials', 'quizzes'])->findOrFail($id);
+        $materials = $kelas->materials;
+        $quizzes = $kelas->quizzes;
+        return view('admin.pages.class.show', ['type_menu' => 'class-list', 'class' => $kelas, 'materials' => $materials, 'quizzes' => $quizzes]);
     }
 
     /**

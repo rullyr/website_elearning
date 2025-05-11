@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Edit Data Kelas ' . $kelas->class_name)
+@section('title', 'Edit Data Kursus ' . $kelas->class_name)
 @push('style')
 @endpush
 @section('main')
@@ -16,7 +16,7 @@
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Edit Data Kelas</li>
+                            <li class="breadcrumb-item active">Edit Data Kursus</li>
                         </ol>
                     </div>
                 </div>
@@ -32,7 +32,7 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Form Edit Data Kelas</h3>
+                                <h3 class="card-title">Form Edit Data Kursus</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
@@ -41,10 +41,10 @@
                                 @method('put')
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="class_name">Masukkan Nama Kelas</label>
+                                        <label for="class_name">Masukkan Nama Kursus</label>
                                         <input type="text" class="form-control" id="class_name" name="class_name"
                                             value="{{ old('class_name') ?? $kelas->name }}"
-                                            placeholder="Masukkan Nama Kelas">
+                                            placeholder="Masukkan Nama Kursus">
                                     </div>
 
                                     <div class="form-group">

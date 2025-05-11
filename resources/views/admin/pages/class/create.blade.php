@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Tambah Data Kelas')
+@section('title', 'Tambah Data Kursus')
 
 @push('style')
 @endpush
@@ -12,12 +12,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Form Buat Kelas</h1>
+                        <h1>Form Buat Kursus</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Form Buat Kelas</li>
+                            <li class="breadcrumb-item active">Form Buat Kursus</li>
                         </ol>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                         <!-- general form elements -->
                         <div class="card card-primary">
                             <div class="card-header">
-                                <h3 class="card-title">Form Kelas Baru</h3>
+                                <h3 class="card-title">Form Kursus Baru</h3>
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
@@ -41,9 +41,9 @@
                                 @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="class_name">Masukkan Nama Kelas</label>
+                                        <label for="class_name">Masukkan Nama Kursus</label>
                                         <input type="text" class="form-control" id="class_name" name="class_name"
-                                            placeholder="Masukkan Nama Kelas">
+                                            placeholder="Masukkan Nama Kursus">
                                     </div>
 
                                     <div class="form-group">

@@ -1,6 +1,6 @@
 @extends('admin.layouts.app')
 
-@section('title', 'Dashboard')
+@section('title', 'Data Kursus')
 
 @push('style')
 @endpush
@@ -12,12 +12,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Data Kelas</h1>
+                        <h1>Data Kursus</h1>
                     </div>
                     <div class="col-sm-6">
                         <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Data Kelas</li>
+                            <li class="breadcrumb-item active">Data Kursus</li>
                         </ol>
                     </div>
                 </div>
@@ -44,7 +44,7 @@
                                 <table class="table table-hover text-nowrap">
                                     <thead>
                                         <tr>
-                                            <th>Nama Kelas</th>
+                                            <th>Nama Kursus</th>
                                             <th>Status</th>
                                         </tr>
                                     </thead>
@@ -54,7 +54,8 @@
                                                 <td>{{ $class->name }}</td>
                                                 <td>{{ $class->status_label }}</td>
                                                 <td class="project-actions text-right">
-                                                    <a class="btn btn-primary btn-sm" href="../examples/kelas_detail.html">
+                                                    <a class="btn btn-primary btn-sm"
+                                                        href="{{ route('admin.kelas.show', $class->id) }}">
                                                         <i class="fa fa-info-circle"></i>
                                                         Info
                                                     </a>
