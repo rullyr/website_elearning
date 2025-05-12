@@ -109,13 +109,13 @@
 
 
                   {{-- MENU FORM --}}
-                  <x-sidebar.tree-menu title="Forms" icon="fas fa-edit" :menuKeys="['class-create']" :activeMenu="$type_menu">
+                  <x-sidebar.tree-menu title="Forms" icon="fas fa-edit" :menuKeys="['class-create', 'material-create', 'quiz-create']" :activeMenu="$type_menu">
                       <x-sidebar.menu-item href="{{ route('admin.kelas.create') }}" title="Buat Kelas"
                           icon="far fa-circle nav-icon" :active="$type_menu === 'class-create'" />
-                      <x-sidebar.menu-item href="#" title="Buat Materi" icon="far fa-circle nav-icon"
-                          :active="$type_menu === 'material-create'" />
-                      <x-sidebar.menu-item href="#" title="Buat Quiz" icon="far fa-circle nav-icon"
-                          :active="$type_menu === 'quiz-create'" />
+                      <x-sidebar.menu-item href="{{ route('admin.class-option', 'materi') }}" title="Buat Materi"
+                          icon="far fa-circle nav-icon" :active="$type_menu === 'material-create'" />
+                      <x-sidebar.menu-item href="{{ route('admin.class-option', 'quiz') }}" title="Buat Quiz"
+                          icon="far fa-circle nav-icon" :active="$type_menu === 'quiz-create'" />
                   </x-sidebar.tree-menu>
 
                   {{-- MENU DATA --}}

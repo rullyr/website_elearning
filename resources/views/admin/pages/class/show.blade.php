@@ -35,6 +35,13 @@
 
         <!-- Main content -->
         <section class="content">
+            @if (session()->has('success'))
+                <x-alert type="success" :message="session('success')" />
+            @endif
+
+            @error('error')
+                <x-alert type="danger" :message="$message" />
+            @enderror
 
             <!-- Info Kursus box -->
             <div class="card">
@@ -119,15 +126,20 @@
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $material->title }}</td>
                                     <td><a href="{{ $material->source }}">Lihat</a></td>
-                                    <td class="project-actions text-right">
-                                        <a class="btn btn-info btn-sm" href="../examples/materi_edit.html">
+                                    <td class="project-actions text-left">
+                                        <a class="btn btn-info btn-sm"
+                                            href="{{ route('admin.material.edit', $material->id) }}">
                                             <i class="fas fa-pencil-alt"> </i>
                                             Edit
                                         </a>
-                                        <a class="btn btn-danger btn-sm" href="#">
-                                            <i class="fas fa-trash"></i>
-                                            Delete
-                                        </a>
+                                        <form method="POST" action="{{ route('admin.material.delete', $material->id) }}"
+                                            class="d-inline">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                                onclick="return confirm('Data ini akan di hapus, anda yakin?')">
+                                                <i class="fas fa-trash"></i> Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
@@ -186,7 +198,7 @@
                                     <td>{{ $quis->option_d }}</td>
                                     <td>{{ $quis->option_e }}</td>
                                     <td>{{ $quis->correct_answer }}</td>
-                                    <td class="project-actions text-right">
+                                    <td class="project-actions text-left">
                                         <a class="btn btn-info btn-sm mb-2" href="../examples/materi_edit.html">
                                             <i class="fas fa-pencil-alt"> </i>
                                             Edit

@@ -112,10 +112,14 @@
                                             <i class="fas fa-pencil-alt"> </i>
                                             Edit
                                         </a>
-                                        <a class="btn btn-danger btn-sm" href="#">
-                                            <i class="fas fa-trash"></i>
-                                            Delete
-                                        </a>
+                                        <form method="POST" action="{{ route('admin.user.delete', $user->id) }}"
+                                            class="d-inline">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                                onclick="return confirm('Data ini akan di hapus, anda yakin?')">
+                                                <i class="fas fa-trash"></i> Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
