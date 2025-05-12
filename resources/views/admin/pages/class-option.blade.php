@@ -45,7 +45,7 @@
                         <div class="col-12 col-md-12 col-lg-12 order-2 order-md-1">
                             <div class="row">
                                 @php
-                                    $link = $category == 'materi' ? 'admin.material.create' : 'admin.material.create';
+                                    $link = $category == 'materi' ? 'admin.material.create' : 'admin.quiz.create';
                                 @endphp
                                 @forelse ($class as $item)
                                     <div class="col-4 col-sm-3">

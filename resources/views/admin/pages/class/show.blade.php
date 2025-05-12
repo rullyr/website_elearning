@@ -144,7 +144,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4">Data Belum Ada</td>
+                                    <td colspan="4" class="text-center">Data Belum Ada</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -177,7 +177,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Quiz</th>
+                                <th>Pertanyaan</th>
                                 <th>Opsi 1</th>
                                 <th>Opsi 2</th>
                                 <th>Opsi 3</th>
@@ -188,37 +188,42 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @forelse ($quizzes as $quis)
+                            @forelse ($quizzes as $quiz)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $quis->question }}</td>
-                                    <td>{{ $quis->option_a }}</td>
-                                    <td>{{ $quis->option_b }}</td>
-                                    <td>{{ $quis->option_c }}</td>
-                                    <td>{{ $quis->option_d }}</td>
-                                    <td>{{ $quis->option_e }}</td>
-                                    <td>{{ $quis->correct_answer }}</td>
+                                    <td>{{ $quiz->question }}</td>
+                                    <td>{{ $quiz->option_a }}</td>
+                                    <td>{{ $quiz->option_b }}</td>
+                                    <td>{{ $quiz->option_c }}</td>
+                                    <td>{{ $quiz->option_d }}</td>
+                                    <td>{{ $quiz->option_e }}</td>
+                                    <td>{{ Str::upper($quiz->correct_answer) }}</td>
                                     <td class="project-actions text-left">
-                                        <a class="btn btn-info btn-sm mb-2" href="../examples/materi_edit.html">
+                                        <a class="btn btn-info btn-sm mb-2"
+                                            href="{{ route('admin.quiz.edit', $quiz->id) }}">
                                             <i class="fas fa-pencil-alt"> </i>
                                             Edit
                                         </a>
-                                        <a class="btn btn-danger btn-sm mb-2" href="#">
-                                            <i class="fas fa-trash"></i>
-                                            Delete
-                                        </a>
+                                        <form method="POST" action="{{ route('admin.quiz.delete', $quiz->id) }}"
+                                            class="d-inline">
+                                            @csrf
+                                            {{ method_field('delete') }}
+                                            <button type="submit" class="btn btn-danger btn-sm" title='Delete'
+                                                onclick="return confirm('Data ini akan di hapus, anda yakin?')">
+                                                <i class="fas fa-trash"></i> Hapus</button>
+                                        </form>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="9">Data Belum Ada</td>
+                                    <td colspan="9" class="text-center">Data Belum Ada</td>
                                 </tr>
                             @endforelse
                         </tbody>
                         <tfoot>
                             <tr>
                                 <th>No</th>
-                                <th>Nama Quiz</th>
+                                <th>Pertanyaan</th>
                                 <th>Opsi 1</th>
                                 <th>Opsi 2</th>
                                 <th>Opsi 3</th>
