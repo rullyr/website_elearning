@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Database\Eloquent\Builder;
 
 class Kelas extends Model
 {
@@ -19,10 +20,22 @@ class Kelas extends Model
     protected $fillable = ['name', 'status', 'is_tryout'];
 
 
+    public function scopeActive(Builder $builder): void
+    {
+        $builder->where('status', 'aktif');
+    }
+
     public function statusLabel(): Attribute
     {
         return Attribute::get(function () {
             return $this->status === 'aktif' ? 'Aktif' : 'Non-Aktif';
+        });
+    }
+
+    public function scoreValue(): Attribute
+    {
+        return Attribute::get(function () {
+            return $this->is_tryout == true ? 5 : 1;
         });
     }
 
