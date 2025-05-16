@@ -126,6 +126,29 @@
                           icon="far fa-circle nav-icon" :active="$type_menu === 'class-list'" />
                   </x-sidebar.tree-menu>
 
+                  @auth
+                      @if (auth()->user()->role === 'admin')
+                          <li class="nav-item">
+                              <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                                  @csrf
+                                  <button type="submit" class="nav-link bg-danger border-0 mt-3"> <i
+                                          class="btn-danger nav-icon far fa-circle nav-icon"></i>
+                                      Logout</button>
+                              </form>
+                          </li>
+                      @else
+                          <li class="scroll-to-section">
+                              <a href="{{ route('login') }}">Login</a>
+                          </li>
+                      @endif
+                  @endauth
+
+                  {{-- <li class="nav-item">
+                      <a href="#" class="nav-link">
+                          <i class="nav-icon"></i>
+                          <p class="text">Important</p>
+                      </a>
+                  </li> --}}
 
 
           </nav>

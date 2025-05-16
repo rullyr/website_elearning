@@ -1,14 +1,10 @@
 <?php
 
-use App\Http\Controllers\Admin\MaterialController;
 use App\Models\Kelas;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Database\Eloquent\Builder;
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::get('reset', function () {
     Artisan::call('route:clear');
@@ -19,7 +15,20 @@ Route::get('reset', function () {
     return 'done';
 });
 
-Route::prefix('admin')->name('admin.')->group(function () {
+Route::get('login', [\App\Http\Controllers\AuthController::class, 'login'])->name('login');
+Route::get('register', [\App\Http\Controllers\AuthController::class, 'register'])->name('register');
+Route::post('register', [\App\Http\Controllers\AuthController::class, 'actionRegister'])->name('actionregister');
+Route::post('actionlogin', [\App\Http\Controllers\AuthController::class, 'actionlogin'])->name('actionlogin');
+Route::post('logout', [\App\Http\Controllers\AuthController::class, 'logout'])->name('logout');
+
+Route::get('/', \App\Http\Controllers\LandingPageController::class)->name('landing-page');
+
+Route::middleware(['auth', 'role:user'])->group(function () {
+    Route::get('/kelas/{id}', [\App\Http\Controllers\ClassController::class, 'index'])->name('kelas.index');
+    Route::post('/kelas/{id}/submit', [\App\Http\Controllers\ClassController::class, 'submit'])->name('kelas.submit');
+});
+
+Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->group(function () {
     Route::get('dashboard', \App\Http\Controllers\Admin\DashboardController::class)->name('dashboard');
     Route::resource('kelas', \App\Http\Controllers\Admin\ClassController::class);
 

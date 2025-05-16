@@ -57,11 +57,11 @@
                                                 <td>{{ $user->name }}</td>
                                                 <td>{{ $user->email }}</td>
                                                 <td class="project-actions text-left">
-                                                    {{-- <a class="btn btn-primary btn-sm"
+                                                    <a class="btn btn-primary btn-sm"
                                                         href="{{ route('admin.user.show', $user->id) }}">
                                                         <i class="fa fa-info-circle"></i>
                                                         Info
-                                                    </a> --}}
+                                                    </a>
                                                     <form method="POST"
                                                         action="{{ route('admin.user.delete', $user->id) }}"
                                                         class="d-inline">

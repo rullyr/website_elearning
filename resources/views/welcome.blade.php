@@ -57,10 +57,29 @@ https://templatemo.com/tm-586-scholar
                         <!-- ***** Logo End ***** -->
                         <!-- ***** Menu Start ***** -->
                         <ul class="nav">
-                            <li class="scroll-to-section"><a href="#top" class="active">Beranda</a></li>
-                            <li class="scroll-to-section"><a href="#courses">Kelas</a></li>
-                            <li class="scroll-to-section"><a href="Login.html">Login</a></li>
+                            <li class="scroll-to-section">
+                                <a href="{{ route('landing-page') }}">Beranda</a>
+                            </li>
+                            <li class="scroll-to-section">
+                                <a class="active">Kelas</a>
+                            </li>
+
+                            @auth
+                                @if (auth()->user()->role === 'user')
+                                    <li class="scroll-to-section">
+                                        <form action="{{ route('logout') }}" method="POST" style="display:inline;">
+                                            @csrf
+                                            <button type="submit" class="text-dark">Logout</button>
+                                        </form>
+                                    </li>
+                                @endif
+                            @else
+                                <li class="scroll-to-section">
+                                    <a href="{{ route('login') }}">Login</a>
+                                </li>
+                            @endauth
                         </ul>
+
                         <a class='menu-trigger'>
                             <span>Menu</span>
                         </a>
@@ -112,49 +131,31 @@ https://templatemo.com/tm-586-scholar
             </div>
 
             <div class="row event_box">
-                <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
-                    <div class="events_item">
-                        <div class="thumb">
-                            <a href="tiu.html"><img src="{{ asset('assets/landing-page/images/course-01.jpg') }}"
-                                    alt=""></a>
-                            <span class="category">TIU</span>
-                        </div>
-                        <div class="down-content"> <br>
-                            <a href="tiu.html">
-                                <h4>Tes Intelegensi Umum</h4>
-                            </a>
-                        </div>
+                @foreach ($classes as $class)
+                    @php
+                        $color = $class->is_tryout == 1 ? '#036a05' : '#6a7a1c';
+                        $label = $class->is_tryout == 1 ? 'Try Out' : 'Kelas';
+                        $bg = $class->is_tryout == 1 ? 'rgb(146 250 22 / 95%)' : 'rgb(255 241 14 / 95%)';
+                    @endphp
+                    <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design">
+                        <a href="{{ route('kelas.index', $class->id) }}">
+                            <div class="events_item">
+                                {{-- <div class="thumb">
+                                <a href="tiu.html"><img src=""></a>
+                            </div> --}}
+                                <div class="down-content">
+                                    <span
+                                        style="font-size: 10px; text-transform: uppercase; color: {{ $color }};
+                                    background-color: {{ $bg }}; padding: 6px 15px; border-radius: 10px;
+                                    font-weight: 500; margin-bottom:10px; display: inline-block;">
+                                        {{ $label }}
+                                    </span>
+                                    <h4>{{ $class->name }}</h4>
+                                </div>
+                            </div>
+                        </a>
                     </div>
-                </div>
-                <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6  development">
-                    <div class="events_item">
-                        <div class="thumb">
-                            <a href="#"><img src="{{ asset('assets/landing-page/images/course-02.jpg') }}"
-                                    alt=""></a>
-                            <span class="category">TWK</span>
-                        </div>
-                        <div class="down-content">
-                            <a href="twk.html">
-                                <h4>Tes Wawasan Kebangsaan</h4>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6 align-self-center mb-30 event_outer col-md-6 design wordpress">
-                    <div class="events_item">
-                        <div class="thumb">
-                            <a href="#"><img src="{{ asset('assets/landing-page/images/course-03.jpg') }}"
-                                    alt=""></a>
-                            <span class="category">TKP</span>
-                        </div>
-                        <div class="down-content"> <br>
-                            <a href="tkp.html">
-                                <h4>Tes Kepribadian</h4>
-                            </a>
-                        </div>
-                    </div>
-                </div>
-
+                @endforeach
             </div>
         </div>
     </section>
